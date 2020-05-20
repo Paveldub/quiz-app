@@ -8,7 +8,7 @@ const Button = props => {
     <button
       onClick={props.onClick}
       className={cls.join(' ')}
-      disbled={props.disbled}
+      disabled={props.disabled}
     >
       {props.children}
     </button>
