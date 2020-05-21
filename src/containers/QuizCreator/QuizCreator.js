@@ -47,9 +47,52 @@ export default class QuizCreator extends Component {
 
 	addQuestionHandler = (e) => {
 		e.preventDefault();
+
+		const quiz = this.state.quiz.concat(); // copy of our state
+		const index = quiz.length + 1;
+
+		const { question, option1, option2, option3, option4 } = this.state.formControls;
+
+		const questionItem = {
+			question: question.value,
+			id: index,
+			rightAnswerId: this.state.rightAnswerId,
+			answers: [
+				{
+					text: option1.value,
+					id: option1.id
+				},
+				{
+					text: option2.value,
+					id: option2.id
+				},
+				{
+					text: option3.value,
+					id: option3.id
+				},
+				{
+					text: option4.value,
+					id: option4.id
+				}
+			]
+		};
+
+		quiz.push(questionItem);
+
+		this.setState({
+			quiz,
+			formControls: createFormControls(),
+			rightAnswerId: 1,
+			isFormValid: false
+		});
 	};
 
-	createQuizHandler = () => {};
+	createQuizHandler = (e) => {
+		e.preventDefault();
+
+		console.log(this.state.quiz);
+		// ToDo: save data to server
+	};
 
 	onChangeHandler = (value, controlName) => {
 		const formControls = { ...this.state.formControls };
@@ -133,10 +176,10 @@ export default class QuizCreator extends Component {
 
 						{select}
 
-						<Button type="primary" onClick={this.addQuestionHandler} disabled={!this.state.isFormValid}>
+						<Button type="primary" onClick={this.addQuestionHandler}>
 							Добавить вопрос
 						</Button>
-						<Button type="success" onClick={this.createQuizHandler} disabled={this.state.quiz.length === 0}>
+						<Button type="success" onClick={this.createQuizHandler}>
 							Создать тест
 						</Button>
 					</form>
