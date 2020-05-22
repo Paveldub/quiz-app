@@ -92,7 +92,7 @@ export default class QuizCreator extends Component {
 		e.preventDefault();
 
 		try {
-			await axios.post('https://app-quiz-44b56.firebaseio.com/quizes.json', this.state.quiz)
+			await axios.post('/quizes.json', this.state.quiz)
 			
 			this.setState({
 				quiz: [],
